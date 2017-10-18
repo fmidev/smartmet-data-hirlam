@@ -180,12 +180,12 @@ if [ ! -s $OUTFILE_ML ]; then
 	$IN/fc${RT_DATE_MMDD}_${RT_HOUR}+???
 
     # Post Process
-    if [ -s $TMP/$(basename $OUTFILE_PL) ]; then
+    if [ -s $TMP/$(basename $OUTFILE_ML) ]; then
 	log "Post processing: $(basename $OUTFILE_ML)"
 	mv -f  $TMP/$(basename $OUTFILE_ML) $TMP/$(basename $OUTFILE_ML).tmp
     fi
 
-    if [ -s $TMP/$(basename $OUTFILE_PL).tmp ]; then
+    if [ -s $TMP/$(basename $OUTFILE_ML).tmp ]; then
 	log "Creating Wind and Weather objects: $(basename $OUTFILE_ML)"
 	qdversionchange -w 0 7 < $TMP/$(basename $OUTFILE_ML).tmp > $TMP/$(basename $OUTFILE_ML)
     fi
