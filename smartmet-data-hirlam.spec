@@ -2,7 +2,7 @@
 
 Name:           smartmet-data-hirlam
 Version:        17.10.18
-Release:        1%{?dist}.fmi
+Release:        2%{?dist}.fmi
 Summary:        SmartMet Data HIRLAM
 Group:          System Environment/Base
 License:        MIT
