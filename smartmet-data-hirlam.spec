@@ -1,8 +1,8 @@
 %define smartmetroot /smartmet
 
 Name:           smartmet-data-hirlam
-Version:        17.10.18
-Release:        2%{?dist}.fmi
+Version:        18.9.6
+Release:        1%{?dist}.fmi
 Summary:        SmartMet Data HIRLAM
 Group:          System Environment/Base
 License:        MIT
@@ -45,18 +45,19 @@ cat > %{buildroot}%{smartmetroot}/cnf/cron/cron.hourly/clean_data_hirlam <<EOF
 # Clean HIRLAM data
 cleaner -maxfiles 4 '_hirlam_.*_surface.sqd' %{smartmetroot}/data/hirlam
 cleaner -maxfiles 4 '_hirlam_.*_pressure.sqd' %{smartmetroot}/data/hirlam
+cleaner -maxfiles 4 '_hirlam_.*_hybrid.sqd' %{smartmetroot}/data/hirlam
 cleaner -maxfiles 4 '_hirlam_.*_surface.sqd' %{smartmetroot}/editor/in
 cleaner -maxfiles 4 '_hirlam_.*_pressure.sqd' %{smartmetroot}/editor/in
+cleaner -maxfiles 4 '_hirlam_.*_hybrid.sqd' %{smartmetroot}/editor/in
 
 # Clean incoming HIRLAM data older than 1 day (1 * 24 * 60 = 1440 min)
 find /smartmet/data/incoming/hirlam -type f -mmin +1440 -delete
 EOF
 
 cat > %{buildroot}%{smartmetroot}/run/data/hirlam/cnf/hirlam-surface.st <<EOF
-var x = par49 - AVGT(-1, -1, par49)
-par49 = x
-
-par354 = par50 / 3
+// Precipitation
+var prev = AVGT(-1, -1, PAR50)
+PAR49 = PAR50 - prev
 EOF
 
 cat > %{buildroot}%{smartmetroot}/cnf/data/hirlam.cnf <<EOF
@@ -84,5 +85,7 @@ rm -rf $RPM_BUILD_ROOT
 %{smartmetroot}/*
 
 %changelog
+* Thu Sep 6 2018 Mikko Rauhala <mikko.rauhala@fmi.fi> 18.9.6-1.el7.fmi
+- Fixed precipitatiopn and hybrid data
 * Wed Oct 18 2017 Mikko Rauhala <mikko.rauhala@fmi.fi> 17.10.18-1.el7.fmi
 - Initial version
