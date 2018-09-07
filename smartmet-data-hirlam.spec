@@ -1,7 +1,7 @@
 %define smartmetroot /smartmet
 
 Name:           smartmet-data-hirlam
-Version:        18.9.6
+Version:        18.9.7
 Release:        1%{?dist}.fmi
 Summary:        SmartMet Data HIRLAM
 Group:          System Environment/Base
@@ -85,6 +85,8 @@ rm -rf $RPM_BUILD_ROOT
 %{smartmetroot}/*
 
 %changelog
+* Fri Sep 7 2018 Mikko Rauhala <mikko.rauhala@fmi.fi> 18.9.7-1.el7.fmi
+- Added parameters and enabled memorymapping 
 * Thu Sep 6 2018 Mikko Rauhala <mikko.rauhala@fmi.fi> 18.9.6-1.el7.fmi
 - Fixed precipitatiopn and hybrid data
 * Wed Oct 18 2017 Mikko Rauhala <mikko.rauhala@fmi.fi> 17.10.18-1.el7.fmi
