@@ -111,7 +111,7 @@ if [ ! -s $OUTFILE_SFC ]; then
 
     if [ -s $TMP/$(basename $OUTFILE_SFC).tmp ]; then
 	log "Creating Wind and Weather objects: $(basename $OUTFILE_SFC)"
-	qdversionchange -a -g 417 7 < $TMP/$(basename $OUTFILE_SFC).tmp > $TMP/$(basename $OUTFILE_SFC)
+	qdversionchange -a -g 417 -i $TMP/$(basename $OUTFILE_SFC).tmp 7 > $TMP/$(basename $OUTFILE_SFC)
     fi
 
     # Distribute
@@ -149,7 +149,7 @@ if [ ! -s $OUTFILE_PL ]; then
 
     if [ -s $TMP/$(basename $OUTFILE_PL).tmp ]; then
 	log "Creating Wind and Weather objects: $(basename $OUTFILE_PL)"
-	qdversionchange -w 0 7 < $TMP/$(basename $OUTFILE_PL).tmp > $TMP/$(basename $OUTFILE_PL)
+	qdversionchange -w 0 -i $TMP/$(basename $OUTFILE_PL).tmp 7 > $TMP/$(basename $OUTFILE_PL)
     fi
 
     # Distribute
@@ -174,7 +174,6 @@ fi # pressure
 if [ ! -s $OUTFILE_ML ]; then
     # Convert
     log "Converting hybrid grib files to $(basename $OUTFILE_ML)"
-#    gribtoqd -d -t -L 109 -c $CNF/hirlam-ml.conf \
     gribtoqd -d -n -t -r 12,13,"Relative Humidity (rh) [%]" -H 472,1,"Pressure (pres) [hPa]"  -t -L 1,109 -c $CNF/hirlam-ml.conf \
 	-p "230,HIRLAM Hybrid" -P $PROJECTION \
 	-o $TMP/$(basename $OUTFILE_ML) \
@@ -190,7 +189,7 @@ if [ ! -s $OUTFILE_ML ]; then
 
     if [ -s $TMP/$(basename $OUTFILE_ML).tmp ]; then
 	log "Creating Wind and Weather objects: $(basename $OUTFILE_ML)"
-	qdversionchange -w 0 7 < $TMP/$(basename $OUTFILE_ML).tmp > $TMP/$(basename $OUTFILE_ML)
+	qdversionchange -w 0 -i $TMP/$(basename $OUTFILE_ML).tmp 7 > $TMP/$(basename $OUTFILE_ML)
     fi
 
     # Distribute
